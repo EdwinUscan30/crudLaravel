@@ -15,7 +15,7 @@ class TaskController extends Controller
      */
     public function index(): View
     {
-        $tasks = Task::latest()->paginate(3);
+        $tasks = Task::latest()->paginate(4);
         return view('index',['tasks' => $tasks]);
     }
 
@@ -63,9 +63,15 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Task $task): RedirectResponse
     {
-        //
+        //VALIDACION DEL UPDATE
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+        $task->update($request->all());
+        return redirect()->route('tasks.index')->with('success','Nueva tarea actualizada!');
     }
 
     /**

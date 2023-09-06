@@ -27,8 +27,10 @@
         @endif
 
 
-        <form action="{{ route('tasks.store') }}" method="POST">
+        <form action="{{ route('tasks.update', $task)}}" method="POST">
+
             @csrf
+            @method('PUT')
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                     <div class="form-group">
@@ -53,9 +55,9 @@
                         <strong>Estado (inicial):</strong>
                         <select name="status" class="form-select" id="">
                             <option value="">-- Elige el status --</option>
-                            <option value="Pendiente">Pendiente</option>
-                            <option value="En progreso">En progreso</option>
-                            <option value="Completada">Completada</option>
+                            <option value="Pendiente" @selected("Pendiente" == $task->status)>Pendiente</option>
+                            <option value="En progreso" @selected("En progreso" == $task->status)>En progreso</option>
+                            <option value="Completada" @selected("Completada" == $task->status)>Completada</option>
                         </select>
                     </div>
                 </div>
